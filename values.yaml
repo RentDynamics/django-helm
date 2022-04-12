@@ -45,12 +45,14 @@ djangoServer:
 
   service:
     type: ClusterIP
+    annotations: {}
     port: 8000
 
   hpa:
     enabled: false
 
   ingress:
+    ingressClassName: nginx
     enabled: false
     annotations: {}
     # kubernetes.io/ingress.class: nginx
@@ -186,3 +188,8 @@ collectstaticJob:
 
 migrateJob:
   enabled: false
+  command:
+    - "python"
+    - "manage.py"
+    - "migrate"
+    - "--settings=$(DJANGO_SETTINGS_MODULE)"

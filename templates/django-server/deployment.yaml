@@ -40,12 +40,13 @@ spec:
             httpGet:
               path: {{ .Values.djangoServer.probe.readiness.path }}
               port: django
-            initialDelaySeconds: 15
+            initialDelaySeconds: 10
             periodSeconds: 10
           livenessProbe:
-            httpGet:
-              path: {{ .Values.djangoServer.probe.liveness.path }}
-              port: django
+            exec:
+              command:
+                - ls
+                - /app/uwsgi.sock
             failureThreshold: 1
             periodSeconds: 10
           {{- with .Values.djangoServer.command }}

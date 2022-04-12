@@ -16,6 +16,9 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
+{{- if .Values.djangoServer.ingress.ingressClassName }}
+  ingressClassName: nginx
+{{- end }}
 {{- if .Values.djangoServer.ingress.tls }}
   tls:
   {{- range .Values.djangoServer.ingress.tls }}
